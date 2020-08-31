@@ -8,7 +8,7 @@ namespace gendei.Models
         public int? UserId { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
-        public TimeSpan? Duration { get; set; }
+        public int Duration { get; set; }
         public int? DayOfWeek { get; set; }
 
         public virtual User User { get; set; }

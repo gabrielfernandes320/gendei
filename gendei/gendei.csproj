@@ -1,8 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200831012416_addUserEmail.cs" />
+    <Compile Remove="Migrations\20200831012416_addUserEmail.Designer.cs" />
+    <Compile Remove="Migrations\20200831012528_addUserEmail.cs" />
+    <Compile Remove="Migrations\20200831012528_addUserEmail.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
   <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />

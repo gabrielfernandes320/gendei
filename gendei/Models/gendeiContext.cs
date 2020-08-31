@@ -14,6 +14,17 @@ namespace gendei.Models
 
         public DbSet<User> User { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<Service> Service { get; set; }
+        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<State> State { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<AttendantServiceRel> AttendantServiceRel { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<ScheduleConfig> ScheduleConfig { get; set; }
+        public DbSet<Session> Session { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
