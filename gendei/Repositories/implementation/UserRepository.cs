@@ -10,8 +10,8 @@ namespace gendei.Repositories.implementation
 {
     public class UserRepository : IGendeiRepository<User>
     {
-        readonly gendeiContext _gendeiContext; 
-        readonly IAuthRepository<User> _authRepository;
+        private readonly gendeiContext _gendeiContext;
+        private readonly IAuthRepository<User> _authRepository;
 
         public UserRepository(gendeiContext context, IAuthRepository<User> authRepository)
         {
@@ -34,17 +34,9 @@ namespace gendei.Repositories.implementation
         {
             _gendeiContext.Entry(obj).State = EntityState.Modified;
 
-            try
-            {
-                await _gendeiContext.SaveChangesAsync();
-            }
-            catch
-            {
-                throw;
-            }
+            await _gendeiContext.SaveChangesAsync();
 
             return await Get(id);
-
         }
 
         public bool Exists(int id)
@@ -54,19 +46,12 @@ namespace gendei.Repositories.implementation
 
         public async Task<User> Add(object obj)
         {
-            var user = (User) obj;
+            var user = (User)obj;
             user.Password = _authRepository.GetEncryptedPassword(user.Password);
 
             _gendeiContext.User.Add(user);
 
-            try
-            {
-                await _gendeiContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _gendeiContext.SaveChangesAsync();
 
             return (User)obj;
         }
@@ -75,15 +60,7 @@ namespace gendei.Repositories.implementation
         {
             _gendeiContext.User.Remove((User)obj);
 
-            try
-            {
-                await _gendeiContext.SaveChangesAsync();
-            }
-            catch
-            {
-                throw;
-            }
-
+            await _gendeiContext.SaveChangesAsync();
             return (User)obj;
         }
 
