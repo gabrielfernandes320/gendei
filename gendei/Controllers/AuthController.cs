@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using gendei.Models;
+using gendei.Entities;
 using gendei.Repositories.contract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

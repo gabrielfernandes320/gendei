@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using gendei.Models;
+using gendei.Entities;
 
 namespace gendei.Migrations
 {
@@ -21,7 +21,7 @@ namespace gendei.Migrations
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("gendei.Models.Schedule", b =>
+            modelBuilder.Entity("gendei.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace gendei.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("gendei.Models.User", b =>
+            modelBuilder.Entity("gendei.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,15 +94,15 @@ namespace gendei.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("gendei.Models.Schedule", b =>
+            modelBuilder.Entity("gendei.Entities.Schedule", b =>
                 {
-                    b.HasOne("gendei.Models.User", "Attendant")
+                    b.HasOne("gendei.Entities.User", "Attendant")
                         .WithMany()
                         .HasForeignKey("AttendantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("gendei.Models.User", "Client")
+                    b.HasOne("gendei.Entities.User", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)

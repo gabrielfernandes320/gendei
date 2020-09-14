@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using gendei.Models;
+using gendei.Entities;
 
-namespace gendei.Models
+namespace gendei.Entities
 {
     public partial class Contact
     {

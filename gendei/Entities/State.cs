@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace gendei.Models
+namespace gendei.Entities
 {
     public class State
     {

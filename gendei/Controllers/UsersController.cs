@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gendei.Entities;
 using gendei.Models;
 using gendei.Repositories.contract;
 using gendei.Repositories.implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gendei.Controllers
 {
-    [Route("api/v1.0/[controller]")]
     [ApiController]
+    [Route("api/v1.0/[controller]")]
+    [Authorize(Policy = Roles.Admin)]
     public class UsersController : ControllerBase
     {
         private readonly IGendeiRepository<User> _userRepository;
@@ -29,6 +32,7 @@ namespace gendei.Controllers
             return Ok(users);
         }
 
+        [Authorize(Policy = Roles.Client)]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {

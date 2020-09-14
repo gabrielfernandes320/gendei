@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace gendei.Models
+namespace gendei.Entities
 {
     public class User
     {

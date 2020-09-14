@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using gendei.Models;
+using gendei.Entities;
 using gendei.Repositories.contract;
 
 namespace gendei.Repositories.implementation
@@ -41,15 +41,15 @@ namespace gendei.Repositories.implementation
 
             if (!IsAuthenticated(dbUser.Password, password)) return null;
            
-            var token = GenerateJSONWebToken(user);
+            var token = GenerateJSONWebToken(user, dbUser.Role.Name);
             var refreshTokenCode = Guid.NewGuid().ToString();
             await CreateSession(token, dbUser.Id, refreshTokenCode);
 
-            return new { token, refreshTokenCode };
+            return new { token, refreshTokenCode, user = dbUser };
 
         }
 
-        public string GenerateJSONWebToken(string user)
+        public string GenerateJSONWebToken(string user, string role)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -57,7 +57,8 @@ namespace gendei.Repositories.implementation
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, role), 
             };
 
             var token = new JwtSecurityToken(
@@ -114,7 +115,7 @@ namespace gendei.Repositories.implementation
 
         public async Task<User> GetUser(string user)
         {
-            User dbUser = await _context.User.Where(u => u.Email == user).FirstOrDefaultAsync();
+            User dbUser = await _context.User.Where(u => u.Email == user).Include(x => x.Role).FirstOrDefaultAsync();
 
             return dbUser;
         }
@@ -135,7 +136,7 @@ namespace gendei.Repositories.implementation
 
             if (session == null) return null;
 
-            var newToken = GenerateJSONWebToken(session.User.Email);
+            var newToken = GenerateJSONWebToken(session.User.Email, session.User.Role.Name);
             var newRefreshTokenCode = Guid.NewGuid().ToString();
 
             await UpdateSession(session, newToken, newRefreshTokenCode);

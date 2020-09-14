@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20200831012416_addUserEmail.Designer.cs" />
     <Compile Remove="Migrations\20200831012528_addUserEmail.cs" />
     <Compile Remove="Migrations\20200831012528_addUserEmail.Designer.cs" />
+    <Compile Remove="Migrations\20200913202455_countryTableUpdatingFields.cs" />
+    <Compile Remove="Migrations\20200913202455_countryTableUpdatingFields.Designer.cs" />
+    <Compile Remove="Migrations\20200913202602_countryTableUpdatingFields.cs" />
+    <Compile Remove="Migrations\20200913202602_countryTableUpdatingFields.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

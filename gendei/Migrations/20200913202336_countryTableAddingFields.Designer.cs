@@ -10,8 +10,8 @@ using gendei.Entities;
 namespace gendei.Migrations
 {
     [DbContext(typeof(gendeiContext))]
-    [Migration("20200831005229_testeSchedule")]
-    partial class testeSchedule
+    [Migration("20200913202336_countryTableAddingFields")]
+    partial class countryTableAddingFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,7 +142,22 @@ namespace gendei.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Iso")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Iso3")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NiceName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NumCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneCode")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -218,8 +233,8 @@ namespace gendei.Migrations
                     b.Property<int?>("DayOfWeek")
                         .HasColumnType("integer");
 
-                    b.Property<TimeSpan?>("Duration")
-                        .HasColumnType("interval");
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
 
                     b.Property<TimeSpan?>("EndTime")
                         .HasColumnType("interval");
@@ -316,6 +331,9 @@ namespace gendei.Migrations
 
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");

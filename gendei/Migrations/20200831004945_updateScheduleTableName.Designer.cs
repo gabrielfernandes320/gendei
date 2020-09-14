@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using gendei.Models;
+using gendei.Entities;
 
 namespace gendei.Migrations
 {
@@ -21,7 +21,7 @@ namespace gendei.Migrations
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("gendei.Models.Address", b =>
+            modelBuilder.Entity("gendei.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace gendei.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("gendei.Models.AttendantServiceRel", b =>
+            modelBuilder.Entity("gendei.Entities.AttendantServiceRel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace gendei.Migrations
                     b.ToTable("AttendantServiceRel");
                 });
 
-            modelBuilder.Entity("gendei.Models.City", b =>
+            modelBuilder.Entity("gendei.Entities.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace gendei.Migrations
                     b.ToTable("City");
                 });
 
-            modelBuilder.Entity("gendei.Models.Contact", b =>
+            modelBuilder.Entity("gendei.Entities.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace gendei.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("gendei.Models.Country", b =>
+            modelBuilder.Entity("gendei.Entities.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,7 +150,7 @@ namespace gendei.Migrations
                     b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("gendei.Models.Role", b =>
+            modelBuilder.Entity("gendei.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,7 +165,7 @@ namespace gendei.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("gendei.Models.Schedule", b =>
+            modelBuilder.Entity("gendei.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -222,7 +222,7 @@ namespace gendei.Migrations
                     b.ToTable("Schedule");
                 });
 
-            modelBuilder.Entity("gendei.Models.ScheduleConfig", b =>
+            modelBuilder.Entity("gendei.Entities.ScheduleConfig", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +251,7 @@ namespace gendei.Migrations
                     b.ToTable("ScheduleConfig");
                 });
 
-            modelBuilder.Entity("gendei.Models.Service", b =>
+            modelBuilder.Entity("gendei.Entities.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,7 +269,7 @@ namespace gendei.Migrations
                     b.ToTable("Service");
                 });
 
-            modelBuilder.Entity("gendei.Models.Session", b =>
+            modelBuilder.Entity("gendei.Entities.Session", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -298,7 +298,7 @@ namespace gendei.Migrations
                     b.ToTable("Session");
                 });
 
-            modelBuilder.Entity("gendei.Models.State", b =>
+            modelBuilder.Entity("gendei.Entities.State", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,7 +318,7 @@ namespace gendei.Migrations
                     b.ToTable("State");
                 });
 
-            modelBuilder.Entity("gendei.Models.User", b =>
+            modelBuilder.Entity("gendei.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -347,95 +347,95 @@ namespace gendei.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("gendei.Models.Address", b =>
+            modelBuilder.Entity("gendei.Entities.Address", b =>
                 {
-                    b.HasOne("gendei.Models.City", "City")
+                    b.HasOne("gendei.Entities.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("gendei.Models.User", "User")
+                    b.HasOne("gendei.Entities.User", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.AttendantServiceRel", b =>
+            modelBuilder.Entity("gendei.Entities.AttendantServiceRel", b =>
                 {
-                    b.HasOne("gendei.Models.User", "Attendant")
+                    b.HasOne("gendei.Entities.User", "Attendant")
                         .WithMany("AttendantServiceRel")
                         .HasForeignKey("AttendantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("gendei.Models.Service", "Service")
+                    b.HasOne("gendei.Entities.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.City", b =>
+            modelBuilder.Entity("gendei.Entities.City", b =>
                 {
-                    b.HasOne("gendei.Models.State", "State")
+                    b.HasOne("gendei.Entities.State", "State")
                         .WithMany("Cities")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.Contact", b =>
+            modelBuilder.Entity("gendei.Entities.Contact", b =>
                 {
-                    b.HasOne("gendei.Models.User", "User")
+                    b.HasOne("gendei.Entities.User", "User")
                         .WithMany("Contacts")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("gendei.Models.Schedule", b =>
+            modelBuilder.Entity("gendei.Entities.Schedule", b =>
                 {
-                    b.HasOne("gendei.Models.User", "Attendant")
+                    b.HasOne("gendei.Entities.User", "Attendant")
                         .WithMany("ScheduleAttendant")
                         .HasForeignKey("AttendantId")
                         .HasConstraintName("schedule_user_doctor_id_fk")
                         .IsRequired();
 
-                    b.HasOne("gendei.Models.User", "Client")
+                    b.HasOne("gendei.Entities.User", "Client")
                         .WithMany("ScheduleClient")
                         .HasForeignKey("ClientId")
                         .HasConstraintName("schedule_user_patient_id_fk")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.ScheduleConfig", b =>
+            modelBuilder.Entity("gendei.Entities.ScheduleConfig", b =>
                 {
-                    b.HasOne("gendei.Models.User", "User")
+                    b.HasOne("gendei.Entities.User", "User")
                         .WithMany("ScheduleConfig")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("gendei.Models.Session", b =>
+            modelBuilder.Entity("gendei.Entities.Session", b =>
                 {
-                    b.HasOne("gendei.Models.User", "User")
+                    b.HasOne("gendei.Entities.User", "User")
                         .WithMany("Sessions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.State", b =>
+            modelBuilder.Entity("gendei.Entities.State", b =>
                 {
-                    b.HasOne("gendei.Models.Country", "Country")
+                    b.HasOne("gendei.Entities.Country", "Country")
                         .WithMany("States")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gendei.Models.User", b =>
+            modelBuilder.Entity("gendei.Entities.User", b =>
                 {
-                    b.HasOne("gendei.Models.Role", "Role")
+                    b.HasOne("gendei.Entities.Role", "Role")
                         .WithMany("User")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

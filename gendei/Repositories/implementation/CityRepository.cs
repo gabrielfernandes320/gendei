@@ -1,4 +1,4 @@
-﻿using gendei.Models;
+﻿using gendei.Entities;
 using gendei.Repositories.contract;
 using Microsoft.EntityFrameworkCore;
 using System;

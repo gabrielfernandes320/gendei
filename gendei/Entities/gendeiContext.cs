@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace gendei.Models
+namespace gendei.Entities
 {
     public class gendeiContext : DbContext
     {

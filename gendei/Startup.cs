@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using gendei.Entities;
 using gendei.Models;
 using gendei.Repositories.contract;
 using gendei.Repositories.implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,7 +40,7 @@ namespace gendei
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            }); ;
+            });
 
             services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -51,12 +53,18 @@ namespace gendei
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = "nexxus-es.com.br",
-                        ValidAudience = "nexxus-es.com.br",
+                        ValidIssuer = "Gabriel Fernandes",
+                        ValidAudience = "Gabriel Fernandes",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("oqMfrA7XUoKmD3Tg9Tqw1xPnkT39MQAMUHb6ISBXBX1OsbBaJhLheVEZ6Vbjho3")),
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Roles.Admin, policy => policy.RequireRole(Roles.Admin));
+                options.AddPolicy(Roles.Client, policy => policy.RequireRole(Roles.Client, Roles.Admin));
+            });
 
             services.AddDbContext<gendeiContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("gendeiConnString")));
@@ -80,6 +88,8 @@ namespace gendei
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
